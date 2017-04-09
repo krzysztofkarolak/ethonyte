@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Ethonyte</string>
+    <string name="state">Stan: </string>
+    <string name="measure1">Odległość 1:</string>
+    <string name="measure2">Odległość 2:</string>
+    <string name="ethonyte_settings_key">ethonytesettingsKey</string>
+    <string name="settings_activity_title">Ustawienia</string>
+    <string name="server_address_setting">Adres serwera Blynk</string>
+    <string name="server_address_setting_summary">Nazwa hosta lub adres IP serwera</string>
+    <string name="server_address_setting_alert_text">Wpisz adres serwera Blynk</string>
+    <string name="server_port_setting">Port serwera Blynk</string>
+    <string name="server_port_setting_summary">Port usług API serwera</string>
+    <string name="server_port_setting_alert_text">Wpisz port serwera API Blynk</string>
+    <string name="server_token_setting">Token Blynk</string>
+    <string name="server_token_setting_summary">Unikalny token dla projektu</string>
+    <string name="server_token_setting_alert_text">Wpisz token projektu Blynk</string>
+    <string name="choose_measure_distance_alert">Wybierz odległość ostrzeżenia</string>
+    <string name="ultrasonic_sensors">Czujniki ultradźwiękowe</string>
+    <string name="ultrasonic_sensors_summary">Włącz lub wyłącz pomiary</string>
+    <string name="title_activity_drawer_layout">DrawerLayout</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="server_connection_error">Error getting request from server!</string>
+    <string name="back_to_exit">Naciśnij wstecz dwa razy, aby zakończyć</string>
+</resources>

@@ -1,0 +1,42 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/background_window</item>
+        <!-- ...and here we setting appcompat’s color theming attrs -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="preferenceTheme">
+            @style/PreferenceThemeOverlay.v14.Material
+        </item>
+    </style>
+
+    <style name="AppAlertDialog"
+        parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="DriveButtonUp" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#2979FF</item>
+        <item name="colorButtonNormal">#29B6F6</item>
+    </style>
+
+    <style name="DriveButtonDown" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">#FF5722</item>
+        <item name="colorButtonNormal">#FF8A65</item>
+    </style>
+
+    <style name="AppTheme" parent="AppBaseTheme" />
+
+    <style name="DialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:textColorPrimary">@color/colorAccent</item>
+    </style>
+
+
+</resources>

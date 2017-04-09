@@ -1,0 +1,45 @@
+<android.support.v7.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.v7.preference.PreferenceCategory
+        android:title="Ustawienia serwera">
+
+        <android.support.v7.preference.EditTextPreference
+            android:key="keyServerAddress"
+            android:title="@string/server_address_setting"
+            android:summary="@string/server_address_setting_summary"
+            android:dialogMessage="@string/server_address_setting_alert_text"
+            android:defaultValue="127.0.0.1"
+            android:dialogLayout="@layout/pref_layout_edittext_fix"/>
+
+        <android.support.v7.preference.EditTextPreference
+            android:key="keyPortAddress"
+            android:title="@string/server_port_setting"
+            android:summary="@string/server_port_setting_summary"
+            android:dialogMessage="@string/server_port_setting_alert_text"
+            android:defaultValue="0000"
+            android:dialogLayout="@layout/pref_layout_edittext_fix"/>
+
+        <android.support.v7.preference.EditTextPreference
+            android:key="keyTokenAddress"
+            android:title="@string/server_token_setting"
+            android:summary="@string/server_token_setting_summary"
+            android:dialogMessage="@string/server_token_setting_alert_text"
+            android:defaultValue="token"
+            android:dialogLayout="@layout/pref_layout_edittext_fix"/>
+
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:key="keyMeasureSetting"
+            android:title="@string/ultrasonic_sensors"
+            android:summary="@string/ultrasonic_sensors_summary"
+            android:defaultValue="false" />
+
+
+        <android.support.v7.preference.CheckBoxPreference
+            android:key="keyEnableDebug"
+            android:title="Debug"
+            android:summary="Debugowanie aplikacji"
+            android:defaultValue="false"/>
+    </android.support.v7.preference.PreferenceCategory>
+
+</android.support.v7.preference.PreferenceScreen>
