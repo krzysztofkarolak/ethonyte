@@ -4,18 +4,16 @@ package com.karolakk.ethonyte;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ServoFragment extends Fragment {
 
 
-    private View rootServoView;
+    private View rootServoView, bm;
 
     private SeekBar seekBar1;
     private SeekBar seekBar2;
@@ -45,7 +43,7 @@ public class ServoFragment extends Fragment {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                if(((EthonyteActivity)getActivity()).debugState) {    System.out.println("started tracking"); }
+                if(((EthonyteActivity)getActivity()).debugState) {  System.out.println("started tracking"); }
             }
 
             @Override
@@ -74,6 +72,11 @@ public class ServoFragment extends Fragment {
             }
         });
 
+        // Bind buttons
+        bm = rootServoView.findViewById(R.id.magnetButton);
+
+        setupButtonMagnet();
+        checkMagnetState();
 
 
         return rootServoView;
@@ -86,7 +89,46 @@ public class ServoFragment extends Fragment {
             ((EthonyteActivity) getActivity()).positionId=1;
             ((EthonyteActivity) getActivity()).getSupportActionBar().setTitle("Serwa");
             ((EthonyteActivity)getActivity()).changeBarColorFromFragment(R.color.colorPrimaryDark);
+            ((EthonyteActivity) getActivity()).checkPrefs();
+            ((EthonyteActivity) getActivity()).checkMagnetVal();
+            checkMagnetState();
         }
+    }
+
+    public void checkMagnetState() {
+        ((EthonyteActivity) getActivity()).checkMagnetVal();
+        if(((EthonyteActivity) getActivity()).debugState) {System.out.println("Magnet:" + (((EthonyteActivity) getActivity()).magnetState));}
+        if(((EthonyteActivity) getActivity()).magnetState) {
+            bm.setPressed(true);
+        }
+        else {
+            bm.setPressed(false);
+        }
+    }
+
+    public void setupButtonMagnet() {
+        bm.setOnTouchListener(
+                new View.OnTouchListener() {
+                    public boolean onTouch(View v, MotionEvent evt) {
+                        int action = evt.getAction();
+                        if(action == MotionEvent.ACTION_DOWN) {
+                            if(((EthonyteActivity) getActivity()).magnetState) {
+                                ((EthonyteActivity) getActivity()).makeRequestPin("D2", "0", "putPin");
+                                ((EthonyteActivity) getActivity()).magnetState = false;
+                                bm.setPressed(false);
+                            }
+                            else {
+                                ((EthonyteActivity) getActivity()).makeRequestPin("D2", "1", "putPin");
+                                ((EthonyteActivity) getActivity()).magnetState = true;
+                                bm.setPressed(true);
+                            }
+                        }
+                        else if(action == MotionEvent.ACTION_UP) {
+                        }
+                        return true;
+                    }
+
+                });
     }
 
 }

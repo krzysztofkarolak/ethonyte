@@ -14,16 +14,22 @@
     <SeekBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="10px"
+        android:paddingBottom="10px"
+        android:thumb="@drawable/ic_progressbar_orange_thumb"
+        android:paddingLeft="30px"
+        android:paddingRight="30px"
+        android:minHeight="8dip"
+        android:maxHeight="8dip"
         android:id="@+id/seekBar2"
         android:rotation="270"
-        android:layout_marginBottom="188dp"
+        android:layout_marginBottom="150dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:minHeight="16dp"
-        android:maxHeight="19dp"
-        android:splitTrack="false"
-        android:max="180"/>
+
+        android:max="180"
+        android:progressDrawable="@drawable/progress_servo"/>
 
     <TableLayout
         android:layout_width="match_parent"
@@ -36,25 +42,40 @@
             android:layout_height="match_parent"
             android:layout_marginTop="50dp">
 
+
             <SeekBar
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="10px"
+                android:paddingBottom="10px"
+                android:thumb="@drawable/ic_progressbar_orange_thumb"
+                android:paddingLeft="30px"
+                android:paddingRight="30px"
+                android:minHeight="8dip"
+                android:maxHeight="8dip"
                 android:id="@+id/seekBar1"
                 android:layout_weight=".100"
                 android:max="150"
-                android:minHeight="30dp"
-                android:maxHeight="50dp" />
-
-
+                android:progressDrawable="@drawable/progress_servo"/>
         </TableRow>
 
     </TableLayout>
-    <SeekBar
-        android:id="@+id/seekDistance"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:max="80"
+
+    <ImageButton
+        android:src="@drawable/ic_magnet"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="110dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="17dp"
+        android:theme="@style/ServoButton"
+        android:id="@+id/magnetButton"
+        android:textColor="#FFF"
+        android:text="@string/magnetName"
+        style="@style/Widget.AppCompat.Button"
         />
+
 
 </RelativeLayout>

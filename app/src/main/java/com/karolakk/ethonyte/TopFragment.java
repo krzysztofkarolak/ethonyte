@@ -19,7 +19,8 @@ public class TopFragment extends Fragment {
         // Required empty public constructor
     }
 
-    private View b1, b2, b3, b4, rootView;
+    private View b1, b2, b3, b4, bb, bled, rootView;
+    private boolean bledState = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,11 +33,15 @@ public class TopFragment extends Fragment {
         b2 = rootView.findViewById(R.id.sendButton2);
         b3 = rootView.findViewById(R.id.sendButton3);
         b4 = rootView.findViewById(R.id.sendButton4);
+        bb = rootView.findViewById(R.id.buzzerButton);
+        bled = rootView.findViewById(R.id.instantLEDButton);
 
         setupButton1();
         setupButton2();
         setupButton3();
         setupButton4();
+        setupBuzzerButton();
+        setupLEDButton();
 
         return rootView;
     }
@@ -116,6 +121,53 @@ public class TopFragment extends Fragment {
                             ((EthonyteActivity)getActivity()).makeRequestPin("D51", "0", "putPin");
                             if(((EthonyteActivity)getActivity()).debugState) { ((EthonyteActivity)getActivity()).makethisToastup("D51 V:0");}
                             b4.setPressed(false);
+                        }
+                        return true;
+                    }
+
+                });
+    }
+
+    public void setupBuzzerButton() {
+        bb.setOnTouchListener(
+                new View.OnTouchListener() {
+                    public boolean onTouch(View v, MotionEvent evt) {
+                        int action = evt.getAction();
+                        if(action == MotionEvent.ACTION_DOWN) {
+                                ((EthonyteActivity)getActivity()).makeRequestPin("D11", "1", "putPin");
+                                if(((EthonyteActivity)getActivity()).debugState) {((EthonyteActivity)getActivity()).makethisToastup("Buzzer On");}
+                                bb.setPressed(true);
+                        }
+                        else if(action == MotionEvent.ACTION_UP) {
+                            ((EthonyteActivity)getActivity()).makeRequestPin("D11", "0", "putPin");
+                            if(((EthonyteActivity)getActivity()).debugState) {((EthonyteActivity)getActivity()).makethisToastup("Buzzer Off");}
+                            bb.setPressed(false);
+                        }
+                        return true;
+                    }
+
+                });
+    }
+
+    public void setupLEDButton() {
+        bled.setOnTouchListener(
+                new View.OnTouchListener() {
+                    public boolean onTouch(View v, MotionEvent evt) {
+                        int action = evt.getAction();
+                        if(action == MotionEvent.ACTION_DOWN) {
+                            if(bledState) {
+                                ((EthonyteActivity)getActivity()).makeRequestPin("V56", "0", "putPin");
+                                ((EthonyteActivity)getActivity()).makeRequestPin("V57", "0", "putPin");
+                                ((EthonyteActivity)getActivity()).makeRequestPin("V58", "0", "putPin");
+                                bled.setPressed(false);
+                                bledState = false;
+                            } else {
+                                ((EthonyteActivity)getActivity()).makeRequestPin("V56", "255", "putPin");
+                                ((EthonyteActivity)getActivity()).makeRequestPin("V57", "255", "putPin");
+                                ((EthonyteActivity)getActivity()).makeRequestPin("V58", "255", "putPin");
+                                bled.setPressed(true);
+                                bledState = true;
+                            }
                         }
                         return true;
                     }

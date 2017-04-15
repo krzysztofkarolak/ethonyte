@@ -1,32 +1,8 @@
-<android.support.v7.preference.PreferenceScreen
+<android.support.v7.preference.PreferenceScreen xmlns:sample="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <android.support.v7.preference.PreferenceCategory
-        android:title="Ustawienia serwera">
-
-        <android.support.v7.preference.EditTextPreference
-            android:key="keyServerAddress"
-            android:title="@string/server_address_setting"
-            android:summary="@string/server_address_setting_summary"
-            android:dialogMessage="@string/server_address_setting_alert_text"
-            android:defaultValue="127.0.0.1"
-            android:dialogLayout="@layout/pref_layout_edittext_fix"/>
-
-        <android.support.v7.preference.EditTextPreference
-            android:key="keyPortAddress"
-            android:title="@string/server_port_setting"
-            android:summary="@string/server_port_setting_summary"
-            android:dialogMessage="@string/server_port_setting_alert_text"
-            android:defaultValue="0000"
-            android:dialogLayout="@layout/pref_layout_edittext_fix"/>
-
-        <android.support.v7.preference.EditTextPreference
-            android:key="keyTokenAddress"
-            android:title="@string/server_token_setting"
-            android:summary="@string/server_token_setting_summary"
-            android:dialogMessage="@string/server_token_setting_alert_text"
-            android:defaultValue="token"
-            android:dialogLayout="@layout/pref_layout_edittext_fix"/>
+        android:title="Ustawienia urządzenia">
 
         <android.support.v7.preference.SwitchPreferenceCompat
             android:key="keyMeasureSetting"
@@ -34,12 +10,93 @@
             android:summary="@string/ultrasonic_sensors_summary"
             android:defaultValue="false" />
 
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:key="keyPhotoresistorSetting"
+            android:title="@string/photoresistor"
+            android:summary="@string/photoresistor_summary"
+            android:defaultValue="true" />
+
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:key="keyBuzzerSetting"
+            android:title="@string/buzzer"
+            android:summary="@string/buzzer_summary"
+            android:defaultValue="false" />
+
+        <com.pavelsikun.seekbarpreference.SeekBarPreferenceCompat
+            android:key="keyBuzzerDistanceSetting"
+            android:title="@string/buzzer_dist"
+            android:summary="@string/buzzer_dist_summary"
+            android:enabled="true"
+            android:defaultValue="5"
+            sample:msbp_minValue="1"
+            sample:msbp_maxValue="130"
+            sample:msbp_interval="1"
+            sample:msbp_measurementUnit="cm"
+            sample:msbp_dialogEnabled="true"/>
+
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:key="keyStopMeasureSetting"
+            android:title="@string/stopmeasure"
+            android:summary="@string/stopmeasure_summary"
+            android:defaultValue="false" />
+
+        <com.pavelsikun.seekbarpreference.SeekBarPreferenceCompat
+            android:key="keyStopMeasureDistanceSetting"
+            android:title="@string/stopmeasure_dist"
+            android:summary="@string/stopmeasure_dist_summary"
+            android:enabled="true"
+            android:defaultValue="15"
+            sample:msbp_minValue="1"
+            sample:msbp_maxValue="130"
+            sample:msbp_interval="1"
+            sample:msbp_measurementUnit="cm"
+            sample:msbp_dialogEnabled="true"/>
+
+    </android.support.v7.preference.PreferenceCategory>
+
+    <android.support.v7.preference.PreferenceCategory
+         android:title="Ustawienia serwera">
+
+    <android.support.v7.preference.EditTextPreference
+        android:key="keyServerAddress"
+        android:title="@string/server_address_setting"
+        android:summary="@string/server_address_setting_summary"
+        android:dialogMessage="@string/server_address_setting_alert_text"
+        android:defaultValue="127.0.0.1"
+        android:dialogLayout="@layout/pref_layout_edittext_fix"/>
+
+    <android.support.v7.preference.EditTextPreference
+        android:key="keyPortAddress"
+        android:title="@string/server_port_setting"
+        android:summary="@string/server_port_setting_summary"
+        android:dialogMessage="@string/server_port_setting_alert_text"
+        android:defaultValue="0000"
+        android:dialogLayout="@layout/pref_layout_edittext_fix"/>
+
+    <android.support.v7.preference.EditTextPreference
+        android:key="keyTokenAddress"
+        android:title="@string/server_token_setting"
+        android:summary="@string/server_token_setting_summary"
+        android:dialogMessage="@string/server_token_setting_alert_text"
+        android:defaultValue="token"
+        android:dialogLayout="@layout/pref_layout_edittext_fix"/>
+
+    </android.support.v7.preference.PreferenceCategory>
+
+    <android.support.v7.preference.PreferenceCategory
+        android:title="Ustawienia aplikacji">
 
         <android.support.v7.preference.CheckBoxPreference
-            android:key="keyEnableDebug"
-            android:title="Debug"
-            android:summary="Debugowanie aplikacji"
+            android:key="keyLessRequests"
+            android:title="@string/less_requests_setting"
+            android:summary="@string/less_requests_setting_summary"
             android:defaultValue="false"/>
+
+        <android.support.v7.preference.CheckBoxPreference
+             android:key="keyEnableDebug"
+             android:title="Debug"
+             android:summary="Debugowanie aplikacji"
+             android:defaultValue="false"/>
     </android.support.v7.preference.PreferenceCategory>
 
 </android.support.v7.preference.PreferenceScreen>

@@ -165,5 +165,53 @@
         </TableRow>
     </TableLayout>
 
+    <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tlayout22"
+        android:layout_gravity="center_vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="16dp">
+
+        <ImageButton
+            android:gravity="center"
+            android:text="@string/buzzer"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight=".5"
+            android:src="@drawable/ic_buzzer_white"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:theme="@style/TopBottomButton"
+            style="@style/Widget.AppCompat.Button"
+            android:textColor="#FFF"
+            android:id="@+id/buzzerButton" />
+
+        <ImageButton
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_light_sq_white"
+                android:layout_height="50dp"
+                android:layout_weight=".5"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:theme="@style/TopBottomButton"
+                style="@style/Widget.AppCompat.Button"
+                android:textColor="#FFF"
+                android:id="@+id/instantLEDButton" />
+
+        </TableRow>
+        </TableLayout>
+
 
 </RelativeLayout>

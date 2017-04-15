@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Ethonyte</string>
     <string name="state">Stan: </string>
+    <string name="buzzer">Buzzer</string>
     <string name="measure1">Odległość 1:</string>
     <string name="measure2">Odległość 2:</string>
     <string name="ethonyte_settings_key">ethonytesettingsKey</string>
@@ -17,7 +18,19 @@
     <string name="choose_measure_distance_alert">Wybierz odległość ostrzeżenia</string>
     <string name="ultrasonic_sensors">Czujniki ultradźwiękowe</string>
     <string name="ultrasonic_sensors_summary">Włącz lub wyłącz pomiary</string>
+    <string name="photoresistor">Fotorezystor</string>
+    <string name="photoresistor_summary">Dioda LED zmieni stan automatycznie</string>
+    <string name="buzzer_summary">Dźwięk ostrzeżenia przy bliskiej odległości</string>
+    <string name="buzzer_dist">Buzzer - dystans</string>
+    <string name="buzzer_dist_summary">Dystans przed przeszkodą do ostrzeżenia</string>
+    <string name="stopmeasure">Zatrzymuj przed zderzeniem</string>
+    <string name="stopmeasure_summary">Wyłączaj silniki przy wykryciu przeszkody</string>
+    <string name="stopmeasure_dist">Zatrzymuj przed zderzeniem - dystans</string>
+    <string name="stopmeasure_dist_summary">Dystans przed przeszkodą do zatrzymania</string>
     <string name="title_activity_drawer_layout">DrawerLayout</string>
+    <string name="magnetName">Elektro\nmagnes</string>
+    <string name="less_requests_setting">Ograniczenia żądań</string>
+    <string name="less_requests_setting_summary">Ogranicz wysyłanie danych do serwera</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

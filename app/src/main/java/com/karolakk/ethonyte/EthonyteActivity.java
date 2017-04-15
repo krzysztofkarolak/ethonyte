@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,17 +44,17 @@ public class EthonyteActivity extends AppCompatActivity {
     private TabLayout tabLayout;
 
     //From Settings
-    private String tokenVar;
-    private String portVar;
-    private String urlVar;
-    private boolean measureVar;
-    public boolean debugState;
+    private String tokenVar, portVar, urlVar, buzzerDistVar, stopMeasureDistVar;
+    private boolean measureVar, photoresistorVar, buzzerVar, stopMeasureVar;
+    public boolean debugState, lessRequestsVar;
+
+    public boolean magnetState;
 
     Timer timerAsync = new Timer();
     private TimerTask timerTaskAsync;
 
+    //active fragment
     public int positionId;
-
 
 
     @Override
@@ -61,10 +62,9 @@ public class EthonyteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ethonyte);
 
-
-
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         // Initialize the ViewPager and set an adapter
         pager = (ViewPager) findViewById(R.id.pager);
@@ -94,11 +94,7 @@ public class EthonyteActivity extends AppCompatActivity {
 
 
         //Preferences init
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        urlVar = sharedPref.getString("keyServerAddress", "127.0.0.1");
-        portVar = sharedPref.getString("keyPortAddress", "9999");
-        tokenVar = sharedPref.getString("keyTokenAddress", "0000");
-        measureVar = sharedPref.getBoolean("keyMeasureSetting", false);
+       checkPrefs();
 
         timerTaskAsync = new TimerTask() {
             @Override
@@ -112,7 +108,7 @@ public class EthonyteActivity extends AppCompatActivity {
             }
         };
 
-        checkMeasureSetting();
+        putServerSettings();
 
     }
 
@@ -123,10 +119,16 @@ public class EthonyteActivity extends AppCompatActivity {
         tokenVar = sharedPref.getString("keyTokenAddress", "0000");
         measureVar = sharedPref.getBoolean("keyMeasureSetting", false);
         debugState = sharedPref.getBoolean("keyEnableDebug", false);
-        checkMeasureSetting();
+        buzzerDistVar = Integer.toString(sharedPref.getInt("keyBuzzerDistanceSetting", 10));
+        stopMeasureDistVar = Integer.toString(sharedPref.getInt("keyStopMeasureDistanceSetting", 25));
+        photoresistorVar = sharedPref.getBoolean("keyPhotoresistorSetting", true);
+        buzzerVar = sharedPref.getBoolean("keyBuzzerSetting", false);
+        stopMeasureVar = sharedPref.getBoolean("keyStopMeasureSetting", false);
+        lessRequestsVar = sharedPref.getBoolean("keyLessRequests", false);
+        putServerSettings();
     }
 
-    public void checkMeasureSetting() {
+    public void putServerSettings() {
         if(measureVar) {
             makeRequestPin("V62", "1", "putPin");
             makeRequestPin("V63", "1", "putPin");
@@ -135,7 +137,32 @@ public class EthonyteActivity extends AppCompatActivity {
             makeRequestPin("V62", "0", "putPin");
             makeRequestPin("V63", "0", "putPin");
         }
+        if(photoresistorVar) {
+            makeRequestPin("V61", "1", "putPin");
+        }
+        else {
+            makeRequestPin("V61", "0", "putPin");
+        }
+        if(buzzerVar) {
+            makeRequestPin("V68", "1", "putPin");
+        }
+        else {
+            makeRequestPin("V68", "0", "putPin");
+        }
+        if(stopMeasureVar) {
+            makeRequestPin("V60", "1", "putPin");
+        }
+        else {
+            makeRequestPin("V60", "0", "putPin");
+        }
+        makeRequestPin("V66", buzzerDistVar, "putPin");
+        makeRequestPin("V67", stopMeasureDistVar, "putPin");
     }
+
+    public void checkMagnetVal() {
+        makeRequestGetPin("D2", "magnet");
+    }
+
     private void checkMeasureValue() {
         if (measureVar) {
             makeRequestGetPin("V5", "measure1");
@@ -161,7 +188,7 @@ public class EthonyteActivity extends AppCompatActivity {
         try {
             timerAsync.schedule(timerTaskAsync, 0, 1000);
         } catch (Exception e) {
-            System.out.println("Timer already defined.");
+            if(debugState) {System.out.println("Timer already defined.");}
         }
         checkPrefs();
     }
@@ -172,7 +199,7 @@ public class EthonyteActivity extends AppCompatActivity {
         try {
             timerAsync.cancel();
         } catch (Exception e) {
-            System.out.println("Timer already defined.");
+            if(debugState) {System.out.println("Timer already defined.");}
         }
         checkPrefs();
     }
@@ -253,7 +280,7 @@ public class EthonyteActivity extends AppCompatActivity {
         oldBackground = ld;
         currentColor = newColor;
         } catch (Exception e) {
-            System.out.println("Color exception");
+            if(debugState) {System.out.println("Color exception");}
         }
     }
 
@@ -284,6 +311,7 @@ public class EthonyteActivity extends AppCompatActivity {
                     return tab1;
                 case 1:
                     ServoFragment tab2 = new ServoFragment();
+                    checkMagnetVal();
                     return tab2;
                 case 2:
                     LightFragment tab3 = new LightFragment();
@@ -332,15 +360,15 @@ public class EthonyteActivity extends AppCompatActivity {
                                 responseHandler(response, "status");
                             } catch (IndexOutOfBoundsException e) {
                                 e.printStackTrace();
-                                System.out.println("Invalid indexes or empty string");
+                                  if(debugState) {System.out.println("Invalid indexes or empty string");}
                             }
                             catch (NullPointerException e) {
                                 e.printStackTrace();
-                                System.out.println("Something went wrong, missed initialization");
+                                   if(debugState) {System.out.println("Something went wrong, missed initialization");}
                             }
                             catch (Exception e) {
                                 e.printStackTrace();
-                                System.out.println("Something unexpected happened, move on or can see stacktrace ");
+                                   if(debugState) {System.out.println("Something unexpected happened, move on or can see stacktrace ");}
                             }
 
 
@@ -351,6 +379,9 @@ public class EthonyteActivity extends AppCompatActivity {
 
                         else if(isRespondableType=="measure2") {
                             responseHandler(response, "measure2");
+                        }
+                        else if(isRespondableType=="magnet") {
+                            responseHandler(response, "magnet");
                         }
                         else if(isRespondableType!="putPin") {
 /*
@@ -379,7 +410,7 @@ public class EthonyteActivity extends AppCompatActivity {
                     try {
                         textViewResults.setText(getString(R.string.server_connection_error));
                     } catch (Exception e) {
-                        System.out.println("EXCEPTION: no screen to show the error");
+                        if(debugState) {System.out.println("EXCEPTION: no screen to show the error");}
                     }
                 }
             }
@@ -392,11 +423,23 @@ public class EthonyteActivity extends AppCompatActivity {
 
     void responseHandler(String responseText, String responseType) {
 
+        if (responseType.equals("magnet")) {
+            String magnetResp = responseText.replaceAll("[\\[\\]\":,]", "");
+            if(magnetResp.contains("1")) {
+                magnetState = true;
+            }
+            else {
+                magnetState = false;
+            }
+        }
+
         try {
             if (positionId == 0) {
                 final TextView textViewResults = (TextView) findViewById(R.id.textViewResults);
                 final TextView textViewMeasure1 = (TextView) findViewById(R.id.textViewMeasure1);
                 final TextView textViewMeasure2 = (TextView) findViewById(R.id.textViewMeasure2);
+                final TextView textView3 = (TextView) findViewById(R.id.textView3);
+                final TextView textView4 = (TextView) findViewById(R.id.textView4);
                 if (responseType.equals("status")) {
                     textViewResults.setText(responseText.replaceAll("[\\[\\]\":,]", ""));
                 } else if (responseType.equals("unknown")) {
@@ -410,7 +453,7 @@ public class EthonyteActivity extends AppCompatActivity {
                 }
             }
         } catch(Exception e) {
-            System.out.print("EXCEPTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            if(debugState) {System.out.print("EXCEPTION! when trying responseHandler with positionId 0");}
         }
     }
 
